@@ -1,9 +1,9 @@
-import WeeklyLineup from "./components/WeeklyLineup";
 import MainPage from "./pages/MainPage";
+
 function App() {
   return (
     <div>
-      <h1>🏈Pickem' Projections🏈</h1>
+      <h1>🏈Pickem&apos; Projections🏈</h1>
       <MainPage />
     </div>
   );
