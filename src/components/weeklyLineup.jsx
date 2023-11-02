@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import DkOdds from "./DkOdds";
 
-function ESPNShortNames() {
-  const [shortNames, setShortNames] = useState([]);
+function WeeklyLineup() {
+  const [matchups, setMatchups] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [id, setId] = useState();
 
   useEffect(() => {
     // Define the ESPN API endpoint URL
@@ -18,13 +20,13 @@ function ESPNShortNames() {
 
         // Check if the 'leagues' field is available and contains data
         if (data && data.events) {
-          const shortNamesList = data.events.reduce((names, events) => {
+          const matchupsList = data.events.reduce((names, events) => {
             if (events) {
               names.push(events);
             }
             return names;
           }, []);
-          setShortNames(shortNamesList);
+          setMatchups(matchupsList);
         } else {
           throw new Error("No data available");
         }
@@ -46,11 +48,14 @@ function ESPNShortNames() {
     return <div>Error: {error.message}</div>;
   }
 
+  // console.log(matchups);
+
   return (
     <div>
       <table>
         <thead>
           <tr>
+            <th>event</th>
             <th>Away</th>
             <th>Weather</th>
             <th>Over/Under</th>
@@ -59,13 +64,14 @@ function ESPNShortNames() {
           </tr>
         </thead>
         <tbody>
-          {shortNames.map((name, index) => (
-            <tr key={name.id}>
-              <td>{name.name.split(" at ")[0]}</td>
+          {matchups.map((event) => (
+            <tr key={event.id}>
+              {" "}
+              console.log({event.id})<td>{event.name.split(" at ")[0]}</td>
               <td></td>
               <td></td>
               <td></td>
-              <td>{name.name.split(" at ")[1]}</td>
+              <td>{event.name.split(" at ")[1]}</td>
             </tr>
           ))}
         </tbody>
@@ -74,4 +80,4 @@ function ESPNShortNames() {
   );
 }
 
-export default ESPNShortNames;
+export default WeeklyLineup;
