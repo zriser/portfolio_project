@@ -6,11 +6,11 @@ function MainPage() {
       <table>
         <thead>
           <tr>
-            <th>Away</th>
-            <th>Weather</th>
-            <th>Over/Under</th>
-            <th>Venue</th>
-            <th>Home</th>
+            <th style={{ textAlign: "center" }}>Away</th>
+            <th style={{ textAlign: "center" }}>Weather</th>
+            <th style={{ textAlign: "center" }}>Over/Under</th>
+            <th style={{ textAlign: "center" }}>Venue</th>
+            <th style={{ textAlign: "center" }}>Home</th>
           </tr>
         </thead>
         <WeeklyLineup weekNumber={"9"} />

@@ -7,6 +7,16 @@ function WeeklyLineup({ weekNumber }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // const GetTest = ({ eventId }) => {
+  //   const displayOverUnder = 42; // Replace with the actual value you want to pass
+
+  //   return (
+  //     <div>
+  //       <Test />
+  //     </div>
+  //   );
+  // };
+
   useEffect(() => {
     // Define the ESPN API endpoint URL
     const apiUrl = `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?dates=2023&seasontype=2&week=${weekNumber}`;
@@ -36,7 +46,7 @@ function WeeklyLineup({ weekNumber }) {
     }
 
     fetchData();
-  }); // The empty dependency array ensures this effect runs only once
+  }, []); // The empty dependency array ensures this effect runs only once
 
   if (loading) {
     return <div>Loading...</div>;
@@ -52,14 +62,30 @@ function WeeklyLineup({ weekNumber }) {
     <tbody>
       {matchups.map((event) => (
         <tr key={event.id}>
-          {" "}
-          <td>{event.name.split(" at ")[0]}</td>
-          <td></td>
-          <td>
+          <tr>
+            <td>{event.name.split(" at ")[0]}</td>
+            <tr>
+              <td>dk</td>
+            </tr>
+            <tr>
+              <td>ceasar</td>
+            </tr>
+          </tr>
+          <td style={{ textAlign: "center" }}>sunny</td>
+          <td style={{ textAlign: "center" }}>
+            DK:
             <DkOdds eventId={event.id} />
           </td>
-          <td></td>
-          <td>{event.name.split(" at ")[1]}</td>
+          <td style={{ textAlign: "center" }}>dome</td>
+          <tr>
+            <tr>
+              <td>dk</td>
+            </tr>
+            <tr>
+              <td>ceasar</td>
+            </tr>
+            <td>{event.name.split(" at ")[1]}</td>
+          </tr>
         </tr>
       ))}
     </tbody>

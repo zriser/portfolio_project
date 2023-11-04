@@ -17,6 +17,8 @@ function DkOdds({ eventId }) {
 
         if (data && data.overUnder) {
           const overUnder = data.overUnder;
+          // const awayTeamOdds = data.awayTeamOdds.moneyLine;
+          // const homeTeamOdds = data.homeTeamOdds.moneyLine;
           setOdds(overUnder);
         } else {
           throw new Error("No data available");
@@ -29,7 +31,7 @@ function DkOdds({ eventId }) {
     }
 
     fetchData();
-  }); // The empty dependency array ensures this effect runs only once
+  }, []); // The empty dependency array ensures this effect runs only once
 
   if (loading) {
     return <div>Loading...</div>;
@@ -39,7 +41,7 @@ function DkOdds({ eventId }) {
     return <div>Error: {error.message}</div>;
   }
 
-  // console.log(matchups);
+  // console.log(odds);
 
   return odds;
 }
