@@ -1,21 +1,23 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import DkOdds from "./DkOdds";
+import Attempt from "./Attempt";
+import AwayMoneyLine from "./AwayMoneyLine";
+import HomeMoneyLine from "./HomeMoneyLine";
+import CeasarsOdds from "./MGMOdds";
+import MGMHomeTeam from "./MGMHomeTeam";
+import MGMAwayTeam from "./MGMAwayTeam";
 
 function WeeklyLineup({ weekNumber }) {
   const [matchups, setMatchups] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [data, setData] = useState(null);
 
-  // const GetTest = ({ eventId }) => {
-  //   const displayOverUnder = 42; // Replace with the actual value you want to pass
-
-  //   return (
-  //     <div>
-  //       <Test />
-  //     </div>
-  //   );
-  // };
+  const onDataFetched = (fetchedData) => {
+    setData(fetchedData);
+  };
+  console.log(data);
 
   useEffect(() => {
     // Define the ESPN API endpoint URL
@@ -57,35 +59,42 @@ function WeeklyLineup({ weekNumber }) {
   }
 
   // console.log(matchups);
-
   return (
     <tbody>
       {matchups.map((event) => (
         <tr key={event.id}>
-          <tr>
-            <td>{event.name.split(" at ")[0]}</td>
-            <tr>
-              <td>dk</td>
-            </tr>
-            <tr>
-              <td>ceasar</td>
-            </tr>
-          </tr>
-          <td style={{ textAlign: "center" }}>sunny</td>
-          <td style={{ textAlign: "center" }}>
-            DK:
-            <DkOdds eventId={event.id} />
-          </td>
-          <td style={{ textAlign: "center" }}>dome</td>
+          {/* <Attempt eventId={event.id} onDataFetched={onDataFetched} /> */}
+          {/* {data.map((data) => (
+            <tr key={data.provider.id}> */}
+          <td>{event.name.split(" at ")[0]}</td>
           <tr>
             <tr>
-              <td>dk</td>
+              DK: <AwayMoneyLine eventId={event.id} />
             </tr>
             <tr>
-              <td>ceasar</td>
+              MGM: <MGMAwayTeam eventId={event.id} />
             </tr>
-            <td>{event.name.split(" at ")[1]}</td>
           </tr>
+          <td></td>
+          <tr>
+            DK: <DkOdds eventId={event.id} />
+          </tr>
+          <tr>
+            MGM: <CeasarsOdds eventId={event.id} />
+          </tr>
+          <td>{event.competitions[0].venue.indoor ? "Indoor" : "Outdoor"}</td>
+          <tr>
+            <tr>
+              DK: <HomeMoneyLine eventId={event.id} />
+            </tr>
+            <tr>
+              MGM: <MGMHomeTeam eventId={event.id} />
+            </tr>
+          </tr>
+
+          <td>{event.name.split(" at ")[1]}</td>
+          {/* </tr>
+          ))} */}
         </tr>
       ))}
     </tbody>
