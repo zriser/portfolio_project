@@ -1,23 +1,21 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import DkOdds from "./DkOdds";
-import Attempt from "./Attempt";
 import AwayMoneyLine from "./AwayMoneyLine";
 import HomeMoneyLine from "./HomeMoneyLine";
 import CeasarsOdds from "./MGMOdds";
 import MGMHomeTeam from "./MGMHomeTeam";
 import MGMAwayTeam from "./MGMAwayTeam";
+import Weather from "./weather";
 
 function WeeklyLineup({ weekNumber }) {
   const [matchups, setMatchups] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [data, setData] = useState(null);
 
   const onDataFetched = (fetchedData) => {
     setData(fetchedData);
   };
-  console.log(data);
 
   useEffect(() => {
     // Define the ESPN API endpoint URL
@@ -58,14 +56,10 @@ function WeeklyLineup({ weekNumber }) {
     return <div>Error: {error.message}</div>;
   }
 
-  // console.log(matchups);
   return (
     <tbody>
       {matchups.map((event) => (
         <tr key={event.id}>
-          {/* <Attempt eventId={event.id} onDataFetched={onDataFetched} /> */}
-          {/* {data.map((data) => (
-            <tr key={data.provider.id}> */}
           <td>{event.name.split(" at ")[0]}</td>
           <tr>
             <tr>
@@ -75,7 +69,15 @@ function WeeklyLineup({ weekNumber }) {
               MGM: <MGMAwayTeam eventId={event.id} />
             </tr>
           </tr>
-          <td></td>
+          <td>
+            <Weather
+              zipCode={
+                event.weather && event.weather.link && event.weather.link.rel[0]
+                  ? event.weather.link.rel[0]
+                  : "Game Ended"
+              }
+            />
+          </td>
           <tr>
             DK: <DkOdds eventId={event.id} />
           </tr>
@@ -91,10 +93,7 @@ function WeeklyLineup({ weekNumber }) {
               MGM: <MGMHomeTeam eventId={event.id} />
             </tr>
           </tr>
-
           <td>{event.name.split(" at ")[1]}</td>
-          {/* </tr>
-          ))} */}
         </tr>
       ))}
     </tbody>

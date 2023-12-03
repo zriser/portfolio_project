@@ -1,20 +1,25 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-function Attempt({ eventId, onDataFetched }) {
+function Weather({ zipCode }) {
+  const [weather, setWeather] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const apiUrl = `https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/${eventId}/competitions/${eventId}/odds/40?lang=en&region=us`;
+    // Define the ESPN API endpoint URL
+    const apiUrl = `http://127.0.0.1:5000/weather?zipcode=${zipCode}`;
 
     async function fetchData() {
       try {
         const response = await axios.get(apiUrl);
         const data = response.data;
 
-        // Check for data and pass it to the parent component
-        onDataFetched(data);
+        if (data) {
+          setWeather(data);
+        } else {
+          throw new Error("No data available");
+        }
       } catch (error) {
         setError(error);
       } finally {
@@ -23,7 +28,11 @@ function Attempt({ eventId, onDataFetched }) {
     }
 
     fetchData();
-  }, []);
+  }, []); // The empty dependency array ensures this effect runs only once
+
+  if (zipCode == "Game Ended") {
+    return "Game Ended - No Weather";
+  }
 
   if (loading) {
     return <div>Loading...</div>;
@@ -33,7 +42,6 @@ function Attempt({ eventId, onDataFetched }) {
     return <div>Error: {error.message}</div>;
   }
 
-  return null;
+  return weather.main + " - " + weather.temperature + "℉";
 }
-
-export default Attempt;
+export default Weather;
