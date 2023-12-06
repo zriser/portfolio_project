@@ -12,7 +12,7 @@ function MainPage() {
         <th style={{ textAlign: "center" }}>Home Moneyline</th>
         <th style={{ textAlign: "center" }}>Home</th>
       </thead>
-      <WeeklyLineup weekNumber={"13"} />
+      <WeeklyLineup weekNumber={"14"} />
     </table>
   );
 }
