@@ -46,7 +46,7 @@ function WeeklyLineup({ weekNumber }) {
     }
 
     fetchData();
-  }, []); // The empty dependency array ensures this effect runs only once
+  }, [weekNumber]); // The empty dependency array ensures this effect runs only once
 
   if (loading) {
     return <div>Loading...</div>;
@@ -60,16 +60,18 @@ function WeeklyLineup({ weekNumber }) {
     <tbody>
       {matchups.map((event) => (
         <tr key={event.id}>
-          <td>{event.name.split(" at ")[0]}</td>
-          <tr>
+          <td style={{ border: "1px solid #ddd", padding: "8px" }}>
+            {event.name.split(" at ")[0]}
+          </td>
+          <td style={{ border: "1px solid #ddd", padding: "8px" }}>
             <tr>
               DK: <AwayMoneyLine eventId={event.id} />
             </tr>
             <tr>
               MGM: <MGMAwayTeam eventId={event.id} />
             </tr>
-          </tr>
-          <td>
+          </td>
+          <td style={{ border: "1px solid #ddd", padding: "8px" }}>
             <Weather
               zipCode={
                 event.weather && event.weather.link && event.weather.link.rel[0]
@@ -78,22 +80,35 @@ function WeeklyLineup({ weekNumber }) {
               }
             />
           </td>
-          <tr>
-            DK: <DkOdds eventId={event.id} />
-          </tr>
-          <tr>
-            MGM: <CeasarsOdds eventId={event.id} />
-          </tr>
-          <td>{event.competitions[0].venue.indoor ? "Indoor" : "Outdoor"}</td>
-          <tr>
+          <td style={{ border: "1px solid #ddd", padding: "8px" }}>
             <tr>
-              DK: <HomeMoneyLine eventId={event.id} />
+              DK: <DkOdds eventId={event.id} />
             </tr>
             <tr>
-              MGM: <MGMHomeTeam eventId={event.id} />
+              MGM: <CeasarsOdds eventId={event.id} />
             </tr>
-          </tr>
-          <td>{event.name.split(" at ")[1]}</td>
+          </td>
+          <td style={{ border: "1px solid #ddd", padding: "8px" }}>
+            {event.competitions[0].venue.indoor ? "Indoor" : "Outdoor"}
+          </td>
+          <td style={{ border: "1px solid #ddd", padding: "8px" }}>
+            <tr>
+              <tr>
+                DK: <HomeMoneyLine eventId={event.id} />
+              </tr>
+              <tr>
+                MGM: <MGMHomeTeam eventId={event.id} />
+              </tr>
+            </tr>
+          </td>
+          <td
+            style={{
+              border: "1px solid #ddd",
+              padding: "8px",
+            }}
+          >
+            {event.name.split(" at ")[1]}
+          </td>
         </tr>
       ))}
     </tbody>

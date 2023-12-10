@@ -7,7 +7,7 @@ function Reload() {
 
   return (
     <div>
-      <button onClick={refreshPage}>Click to reload!</button>
+      <button onClick={refreshPage}>Refresh Data</button>
     </div>
   );
 }

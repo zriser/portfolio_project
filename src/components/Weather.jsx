@@ -31,7 +31,7 @@ function Weather({ zipCode }) {
   }, []); // The empty dependency array ensures this effect runs only once
 
   if (zipCode == "Game Ended") {
-    return "Game Ended - No Weather";
+    return "Game Ended or Too Early";
   }
 
   if (loading) {

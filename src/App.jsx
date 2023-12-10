@@ -1,10 +1,11 @@
 import Reload from "./components/Reload";
 import MainPage from "./pages/MainPage";
-
+import "./styles/style.css";
+console.log(Date());
 function App() {
   return (
-    <div>
-      <h1>🏈Pickem&apos; Projections🏈</h1>
+    <div className="container">
+      <h1 style={{ textAlign: "center" }}>🏈Pickem&apos; Projections🏈</h1>
       <Reload />
       <MainPage />
     </div>
