@@ -13,10 +13,6 @@ function WeeklyLineup({ weekNumber }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const onDataFetched = (fetchedData) => {
-    setData(fetchedData);
-  };
-
   useEffect(() => {
     // Define the ESPN API endpoint URL
     const apiUrl = `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?dates=2023&seasontype=2&week=${weekNumber}`;
